@@ -3,9 +3,56 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniERP.API.Models", "src\MiniERP.API.Models\MiniERP.API.Models.csproj", "{E1AECAE6-14FB-4E2B-B65F-438CC8B61B98}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniERP.API", "src\MiniERP.API\MiniERP.API.csproj", "{812CB496-DAF3-4B51-A7F3-E507AF96E554}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniERP.API.Business", "src\MiniERP.API.Business\MiniERP.API.Business.csproj", "{14491763-1C17-4BCA-A66A-70482EBD1042}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5A9A52FD-0D8F-4631-84A4-5ACC9E741B1D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniERP.API.Data", "src\MiniERP.API.Data\MiniERP.API.Data.csproj", "{14A824FA-C6E4-4D84-8B79-0C073C74AB65}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{580F6894-66BC-4F59-A6A4-549B55229412}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniERP.API.IntegrationTests", "tests\MiniERP.API.IntegrationTests\MiniERP.API.IntegrationTests.csproj", "{59209040-7DA4-4799-A655-0945CDBACBEC}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E1AECAE6-14FB-4E2B-B65F-438CC8B61B98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1AECAE6-14FB-4E2B-B65F-438CC8B61B98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1AECAE6-14FB-4E2B-B65F-438CC8B61B98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1AECAE6-14FB-4E2B-B65F-438CC8B61B98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{812CB496-DAF3-4B51-A7F3-E507AF96E554}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{812CB496-DAF3-4B51-A7F3-E507AF96E554}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{812CB496-DAF3-4B51-A7F3-E507AF96E554}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{812CB496-DAF3-4B51-A7F3-E507AF96E554}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14491763-1C17-4BCA-A66A-70482EBD1042}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14491763-1C17-4BCA-A66A-70482EBD1042}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14491763-1C17-4BCA-A66A-70482EBD1042}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14491763-1C17-4BCA-A66A-70482EBD1042}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14A824FA-C6E4-4D84-8B79-0C073C74AB65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14A824FA-C6E4-4D84-8B79-0C073C74AB65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14A824FA-C6E4-4D84-8B79-0C073C74AB65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14A824FA-C6E4-4D84-8B79-0C073C74AB65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59209040-7DA4-4799-A655-0945CDBACBEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59209040-7DA4-4799-A655-0945CDBACBEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59209040-7DA4-4799-A655-0945CDBACBEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59209040-7DA4-4799-A655-0945CDBACBEC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E1AECAE6-14FB-4E2B-B65F-438CC8B61B98} = {5A9A52FD-0D8F-4631-84A4-5ACC9E741B1D}
+		{812CB496-DAF3-4B51-A7F3-E507AF96E554} = {5A9A52FD-0D8F-4631-84A4-5ACC9E741B1D}
+		{14491763-1C17-4BCA-A66A-70482EBD1042} = {5A9A52FD-0D8F-4631-84A4-5ACC9E741B1D}
+		{14A824FA-C6E4-4D84-8B79-0C073C74AB65} = {5A9A52FD-0D8F-4631-84A4-5ACC9E741B1D}
+		{59209040-7DA4-4799-A655-0945CDBACBEC} = {580F6894-66BC-4F59-A6A4-549B55229412}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {39BFB193-0630-47F4-8EE8-BA79072DA421}
