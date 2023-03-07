@@ -1,53 +1,21 @@
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore;
 using MiniERP.API.Configuration;
-using MiniERP.API.Data;
 
 namespace MiniERP.API
 {
     public static class Program
     {
         public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+            => WebHost.CreateDefaultBuilder(args)
+                      .ConfigureAppConfiguration(ConfigureAppConfiguration())
+                      .BaseApiConfiguration()
+                      .Build()
+                      .Run();
 
-            builder.Configuration
-                   .SetBasePath(builder.Environment.ContentRootPath)
-                   .AddJsonFile("appsettings.json", true, true)
-                   .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true)
-                   .AddEnvironmentVariables();
-
-            // ConfigureServices
-
-            builder.Services.AddDbContext<MiniERPDbContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-            });
-
-            // Add services to the container.
-
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            builder.Services.ResolveDependencies();
-
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-            app.MapControllers();
-
-            app.Run();
-        }
+        private static Action<WebHostBuilderContext, IConfigurationBuilder> ConfigureAppConfiguration()
+            => (context, configuration) => configuration.SetBasePath(context.HostingEnvironment.ContentRootPath)
+                                                        .AddJsonFile("appsettings.json", true, true)
+                                                        .AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", true, true)
+                                                        .AddEnvironmentVariables();
     }
 }

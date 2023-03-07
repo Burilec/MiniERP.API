@@ -1,40 +1,42 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
+﻿using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using System.Net.Http.Json;
-using System.Text.RegularExpressions;
+using MiniERP.API.Configuration;
+using Xunit;
 
 namespace MiniERP.API.IntegrationTests
 {
-    public abstract class IntegrationTestsFixture
+    [CollectionDefinition("Oloco")]
+    public class IntegrationTestsFixtureCollection : ICollectionFixture<IntegrationTestsFixture>
     {
-        public HttpClient Client;
+    }
+
+    public sealed class IntegrationTestsFixture
+    {
+        private const string HostEnvironment = "Local";
+
+        public readonly HttpClient Client;
+
+        public IServiceProvider ServiceProvider { get; internal set; }
+
+
 
         public IntegrationTestsFixture()
         {
-            var builder = new WebHostBuilder();
+            var hostBuilder = new HostBuilder().ConfigureDefaults(Array.Empty<string>());
 
-            builder.UseEnvironment("Testing");
+            hostBuilder.UseEnvironment(HostEnvironment)
+                       .ConfigureHostConfiguration(_ => _.SetBasePath(Environment.CurrentDirectory)
+                                                         .AddJsonFile($"appsettings.{HostEnvironment}.json", true, true))
+                       .ConfigureWebHostDefaults(_ => _.UseTestServer()
+                                                       .BaseApiConfiguration());
 
-            builder.BaseApiConfiguration()
-
-            var host = builder.Build();
-
+            var host = hostBuilder.Build();
             host.Start();
+            var testServer = host.GetTestServer();
 
-            Client = host.GetTestClient();
-
-            //var clientOptions = new WebApplicationFactoryClientOptions
-            //{
-            //    AllowAutoRedirect = true,
-            //    BaseAddress = new Uri("http://localhost"),
-            //    HandleCookies = true,
-            //    MaxAutomaticRedirections = 7
-            //};
-
-            //Factory = new LojaAppFactory<TStartup>();
-            //Client = Factory.CreateClient(clientOptions);
+            Client = testServer.CreateClient();
+            ServiceProvider = host.Services;
         }
     }
 }
