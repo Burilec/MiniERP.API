@@ -23,13 +23,23 @@ namespace MiniERP.API.Configuration
                 app.UseHttpsRedirection();
                 app.UseAuthorization();
                 app.UseEndpoints(builder => builder.MapControllers());
+
+                using var serviceScope = app.ApplicationServices.CreateScope();
+
+                var miniERPDbContext = serviceScope.ServiceProvider.GetService<MiniERPDbContext>();
+
+                miniERPDbContext?.Database.Migrate();
             };
 
         private static Action<WebHostBuilderContext, IServiceCollection> ConfigureServices()
             => (context, service) =>
             {
                 // ConfigureServices
-                service.AddDbContext<MiniERPDbContext>(options => options.UseSqlServer(context.Configuration.GetConnectionString("DefaultConnection")));
+                service.AddDbContext<MiniERPDbContext>(options =>
+                {
+                    var connectionString = context.Configuration.GetConnectionString("DefaultConnection");
+                    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), x => x.MigrationsAssembly(typeof(MiniERPDbContext).Assembly.GetName().Name));
+                });
 
                 // Add services to the container.
                 service.AddControllers();

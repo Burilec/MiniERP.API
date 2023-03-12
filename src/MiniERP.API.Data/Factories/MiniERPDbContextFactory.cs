@@ -4,8 +4,8 @@ using Microsoft.Extensions.Configuration;
 
 namespace MiniERP.API.Data.Factories
 {
-    //ReSharper disable once UnusedType.Global
-    public sealed class MiniERPDbContextFactory : IDesignTimeDbContextFactory<MiniERPDbContext>
+    // ReSharper disable once UnusedType.Global
+    public class MiniERPDbContextFactory : IDesignTimeDbContextFactory<MiniERPDbContext>
     {
         public MiniERPDbContext CreateDbContext(string[] args)
         {
@@ -13,7 +13,7 @@ namespace MiniERP.API.Data.Factories
             var optionsBuilder = new DbContextOptionsBuilder<MiniERPDbContext>();
             var connectionString = configuration["ConnectionStrings:DefaultConnection"];
 
-            optionsBuilder.UseSqlServer(connectionString, builder => builder.MigrationsAssembly(typeof(MiniERPDbContext).Assembly.GetName().Name));
+            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), x => x.MigrationsAssembly(typeof(MiniERPDbContext).Assembly.GetName().Name));
 
             return new MiniERPDbContext(optionsBuilder.Options);
         }
